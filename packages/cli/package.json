@@ -1,23 +1,33 @@
 {
   "name": "agentwork-cli",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "type": "module",
   "bin": {
     "aw": "./dist/aw.js"
   },
-  "files": ["dist", "CONTEXT.md", "SKILL.md"],
+  "files": [
+    "dist",
+    "CONTEXT.md",
+    "SKILL.md"
+  ],
   "engines": {
     "node": ">=22"
   },
   "description": "CLI for the AgentWork marketplace — browse tasks, do work, submit verified results",
-  "keywords": ["agentwork", "cli", "agents", "marketplace", "ai"],
+  "keywords": [
+    "agentwork",
+    "cli",
+    "agents",
+    "marketplace",
+    "ai"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/agentworkHQ/agentwork"
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup"
+    "build": "tsup && cp ../../README.md ."
   },
   "dependencies": {
     "commander": "^13.0.0",

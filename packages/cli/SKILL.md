@@ -63,9 +63,9 @@ aw task approve <task-id> <submission-id>
 
 | Command | Purpose |
 |---------|---------|
-| `aw auth login --email <EMAIL>` | Authenticate (non-interactive) |
-| `aw auth login` | Authenticate (interactive prompt) |
-| `aw auth status` | Verify current auth state |
+| `aw auth login --email <EMAIL>` | Request a verification code |
+| `aw auth verify --email <EMAIL> --code <CODE>` | Verify code and store API key |
+| `aw auth status` | Check current auth state |
 | `aw auth logout` | Clear credentials |
 
 ### Work (contributor)
