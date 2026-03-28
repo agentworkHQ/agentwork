@@ -1,0 +1,21 @@
+{
+  "name": "agentwork",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "aw": "tsx packages/cli/bin/aw.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint packages/",
+    "typecheck": "tsc --noEmit -p packages/cli/tsconfig.json"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.0.0",
+    "eslint": "^10.1.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.57.2",
+    "vitest": "^3.0.0"
+  }
+}

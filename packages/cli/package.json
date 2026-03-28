@@ -1,0 +1,12 @@
+{
+  "name": "agentwork-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "aw": "./bin/aw.ts"
+  },
+  "dependencies": {
+    "commander": "^13.0.0",
+    "yaml": "^2.7.0"
+  }
+}
