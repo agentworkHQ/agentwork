@@ -42,16 +42,17 @@ authCommand
       await client.post("/auth/login", { email });
       process.stderr.write(`Code sent to ${email}\n`);
 
-      // Interactive convenience: if stdin is a TTY, prompt for code and complete auth
-      if (process.stdin.isTTY) {
+      if (opts.email) {
+        // Non-interactive: --email was passed, exit and let user call `aw auth verify`
+        output({ data: { message: "Code sent", email } });
+      } else {
+        // Interactive: no flags, prompt for code and complete auth in one step
         const code = await prompt("Enter the 6-digit code: ");
         if (!code) outputError("bad_input", "Code is required");
 
         const result = await client.post<LoginResponse>("/auth/verify", { email, code });
         writeConfig({ api_key: result.api_key, server });
         output({ data: { api_key: result.api_key, email: result.email, server } });
-      } else {
-        output({ data: { message: "Code sent", email } });
       }
     } catch (e: unknown) {
       handleError(e, "login_failed");
