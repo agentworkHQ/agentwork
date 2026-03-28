@@ -22,7 +22,6 @@ You are working in a task directory containing source code and a verification sc
 
 ## Submission notes
 
-- `must_include` files (e.g. result.json) are checked on the filesystem, not in your git diff.
-  They are created by verify.sh during verification. Your patch only contains code changes.
+- The verify output file (e.g. result.json) is created by verify.sh during verification, not by you.
 - The CLI auto-commits your changes on submit. You do not need to run git commands.
-- Scope validation runs against your git diff — any file outside scope.include will be rejected.
+- Validation checks your git diff — any modification to a protected file will be rejected.

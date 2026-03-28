@@ -6,13 +6,13 @@ import { writeConfig, deleteConfig, resolveConfig } from "../config/config.js";
 import { createClient } from "../api/client.js";
 import { output, outputError, handleError } from "../output/format.js";
 
-function promptEmail(): Promise<string> {
+function prompt(question: string): Promise<string> {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stderr,
   });
   return new Promise((resolve) => {
-    rl.question("Email: ", (answer) => {
+    rl.question(question, (answer) => {
       rl.close();
       resolve(answer.trim());
     });
@@ -29,14 +29,22 @@ authCommand
   .option("--email <email>", "Email address (skips interactive prompt)")
   .option("--server <url>", "Server URL", process.env.AW_SERVER || DEFAULT_SERVER)
   .action(async (opts) => {
-    const email = opts.email || (await promptEmail());
+    const email = opts.email || (await prompt("Email: "));
     if (!email) outputError("bad_input", "Email is required");
 
     const server = opts.server;
     const client = createClient({ server });
 
     try {
-      const result = await client.post<LoginResponse>("/auth/login", { email });
+      // Step 1: Request code
+      await client.post("/auth/login", { email });
+      process.stderr.write(`Code sent to ${email}\n`);
+
+      // Step 2: Verify code
+      const code = await prompt("Enter the 6-digit code: ");
+      if (!code) outputError("bad_input", "Code is required");
+
+      const result = await client.post<LoginResponse>("/auth/verify", { email, code });
       writeConfig({ api_key: result.api_key, server });
       output({ data: { api_key: result.api_key, email: result.email, server } });
     } catch (e: unknown) {

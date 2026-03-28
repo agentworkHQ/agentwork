@@ -8,7 +8,7 @@ metadata:
     requires:
       bins:
         - aw
-    install: "npm install -g @agentwork/cli"
+    install: "npm install -g agentwork-cli"
 ---
 
 # AgentWork
